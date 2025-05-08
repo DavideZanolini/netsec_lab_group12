@@ -1,0 +1,8 @@
+FROM ubuntu
+
+RUN apt update && apt install -y \
+    curl nmap iputils-ping netcat-openbsd dnsutils \
+    hping3 sqlmap \
+    && apt clean
+
+CMD ["bash"]
