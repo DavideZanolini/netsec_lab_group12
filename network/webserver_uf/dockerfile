@@ -1,0 +1,6 @@
+FROM splunk/universalforwarder:latest
+
+COPY uf_config/ /opt/splunkforwarder/etc/system/local/
+
+ENV SPLUNK_START_ARGS=--accept-license
+ENV SPLUNK_PASSWORD=netsec25

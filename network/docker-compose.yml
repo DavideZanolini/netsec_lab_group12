@@ -34,6 +34,21 @@ services:
       sh -c "ip route del default &&
       ip route add default via 172.28.0.2 &&
       /docker-entrypoint.sh nginx -g 'daemon off;'"
+    volumes:
+      - webserver_logs:/var/log/nginx
+
+  webserver_uf:
+    build: ./webserver_uf
+    container_name: webserver_uf
+    hostname: webserver_uf
+    networks:
+      internal_net:
+        ipv4_address: 172.28.0.4
+    volumes:
+      - webserver_logs:/nginx-logs:ro
+    user: 
+      root 
+
 
   dns:
     image: andyshinn/dnsmasq
@@ -57,15 +72,16 @@ services:
     container_name: splunk
     environment:
       - SPLUNK_START_ARGS=--accept-license
-      - SPLUNK_PASSWORD=changeme
+      - SPLUNK_PASSWORD=netsec25
     ports:
       - "8000:8000"   # Web UI
       - "8088:8088"   # HEC endpoint
+      - "9997:9997"   # UF
     cap_add:
       - NET_ADMIN
     networks:
       internal_net:
-        ipv4_address: 172.28.0.4
+        ipv4_address: 172.28.0.100
     healthcheck:
       test: curl -f http://localhost:8000 || exit 1
       interval: 60s
@@ -148,3 +164,6 @@ networks:
     ipam:
       config:
         - subnet: 172.30.0.0/16
+
+volumes:
+  webserver_logs:
