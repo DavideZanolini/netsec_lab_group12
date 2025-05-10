@@ -1,5 +1,5 @@
 # multi_net_container/Dockerfile
-FROM ubuntu
+FROM nginx:bookworm
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -11,6 +11,10 @@ RUN apt-get update && apt-get install -y \
     curl \
     iputils-ping \
     && rm -rf /var/lib/apt/lists/*
+
+# Reverse proxy
+COPY reverse-proxy /etc/nginx/sites-available/reverse-proxy
+# RUN ln -s /etc/nginx/sites-available/reverse-proxy /etc/nginx/sites-enabled/
 
 # Enable IP forwarding and setup NAT on startup
 COPY router.sh /router.sh

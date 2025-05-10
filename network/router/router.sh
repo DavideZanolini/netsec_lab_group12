@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# ROUTER
 # Enable IP forwarding
 echo 1 >/proc/sys/net/ipv4/ip_forward
 
@@ -23,6 +24,9 @@ iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
 # Block maliciuous IP
 iptables -I INPUT 1 -s 198.51.100.23 -j DROP
 
+# Allow http traffic
+iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 
-# Keep container running
-sleep infinity
+
+# Run nginx
+/docker-entrypoint.sh nginx -g 'daemon off;'
