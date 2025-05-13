@@ -35,11 +35,11 @@ def generate_dns_traffic(source_ip, dns_server, domain):
 
 if __name__ == "__main__":
     # Define targets and sources
-    icmp_targets = ["192.168.1.10", "192.168.1.11", "192.168.1.12"]  # Internal users
-    http_target = "http://10.0.1.5"  # Webserver
-    dns_server = "10.0.1.53"  # DNS server
+    icmp_targets = ["172.28.0.10", "172.28.0.11", "172.28.0.12"]  # Internal users
+    http_target = "http://172.28.0.3"  # Webserver
+    dns_server = "172.28.0.21"  # DNS server
     domain = "example.com"
-    source_ips = ["10.0.1.2", "10.0.1.3", "10.0.1.4"]  # External users
+    source_ips = ["172.30.0.4", "172.30.0.5", "172.30.0.6"]  # External users
 
     # Run traffic generation for 2 minutes
     start_time = time.time()
