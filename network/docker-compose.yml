@@ -90,11 +90,7 @@ services:
     networks:
       external_net:
         ipv4_address: 172.30.0.4
-    command: >-
-      sh -c "apt-get update &&
-      apt-get install -y python3-pip &&
-      pip3 install --break-system-packages scapy requests &&
-      tail -f /dev/null"
+    command: sleep infinity
   user2:
     build: ./external_user
     hostname: user2
@@ -104,11 +100,7 @@ services:
     networks:
       external_net:
         ipv4_address: 172.30.0.5
-    command: >-
-      sh -c "apt-get update &&
-      apt-get install -y python3-pip &&
-      pip3 install --break-system-packages scapy requests &&
-      tail -f /dev/null"
+    command: sleep infinity
   user3:
     build: ./external_user
     hostname: user3
@@ -118,11 +110,7 @@ services:
     networks:
       external_net:
         ipv4_address: 172.30.0.6
-    command: >-
-      sh -c "apt-get update &&
-      apt-get install -y python3-pip &&
-      pip3 install --break-system-packages scapy requests &&
-      tail -f /dev/null"
+    command: sleep infinity
   internal_user1:
     build: ./internal_user
     hostname: internal_user1
@@ -133,10 +121,7 @@ services:
       internal_net:
         ipv4_address: 172.28.0.10
     command: >-
-      sh -c "apt-get update &&
-      apt-get install -y python3-pip &&
-      pip3 install --break-system-packages scapy requests &&
-      ip route del default &&
+      sh -c "ip route del default &&
       ip route add default via 172.28.0.2 &&
       tail -f /dev/null"
   internal_user2:
@@ -149,10 +134,7 @@ services:
       internal_net:
         ipv4_address: 172.28.0.11
     command: >-
-      sh -c "apt-get update &&
-      apt-get install -y python3-pip &&
-      pip3 install --break-system-packages scapy requests &&
-      ip route del default &&
+      sh -c "ip route del default &&
       ip route add default via 172.28.0.2 &&
       tail -f /dev/null"
   internal_user3:
@@ -165,10 +147,7 @@ services:
       internal_net:
         ipv4_address: 172.28.0.12
     command: >-
-      sh -c "apt-get update &&
-      apt-get install -y python3-pip &&
-      pip3 install --break-system-packages scapy requests &&
-      ip route del default &&
+      sh -c "ip route del default &&
       ip route add default via 172.28.0.2 &&
       tail -f /dev/null"
 
