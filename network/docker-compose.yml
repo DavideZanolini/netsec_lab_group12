@@ -11,7 +11,6 @@ services:
         ipv4_address: 172.28.0.2
       external_net:
         ipv4_address: 172.30.0.2
-
   attacker:
     build: ./attacker
     hostname: attacker
@@ -20,7 +19,6 @@ services:
     networks:
       external_net:
         ipv4_address: 172.30.0.3
-
   webserver:
     build: ./webserver
     cap_add:
@@ -36,7 +34,6 @@ services:
       /docker-entrypoint.sh nginx -g 'daemon off;'"
     volumes:
       - webserver_logs:/var/log/nginx
-
   webserver_uf:
     build: ./webserver_uf
     container_name: webserver_uf
@@ -48,8 +45,6 @@ services:
       - webserver_logs:/nginx-logs:ro
     user: 
       root 
-
-
   dns:
     image: andyshinn/dnsmasq
     entrypoint: []
@@ -65,7 +60,6 @@ services:
       sh -c "ip route del default &&
       ip route add default via 172.28.0.2 &&
       dnsmasq -k --log-facility=-"
-
   splunk:
     build: ./splunk
     hostname: splunk
@@ -87,32 +81,48 @@ services:
       interval: 60s
       timeout: 10s
       retries: 5
-
   user1:
-    image: ubuntu
+    build: ./external_user
     hostname: user1
     container_name: user1
-    command: sleep infinity
+    cap_add:
+      - NET_ADMIN
     networks:
       external_net:
         ipv4_address: 172.30.0.4
+    command: >-
+      sh -c "apt-get update &&
+      apt-get install -y python3-pip &&
+      pip3 install --break-system-packages scapy requests &&
+      tail -f /dev/null"
   user2:
-    image: ubuntu
+    build: ./external_user
     hostname: user2
     container_name: user2
-    command: sleep infinity
+    cap_add:
+      - NET_ADMIN
     networks:
       external_net:
         ipv4_address: 172.30.0.5
+    command: >-
+      sh -c "apt-get update &&
+      apt-get install -y python3-pip &&
+      pip3 install --break-system-packages scapy requests &&
+      tail -f /dev/null"
   user3:
-    image: ubuntu
+    build: ./external_user
     hostname: user3
     container_name: user3
-    command: sleep infinity
+    cap_add:
+      - NET_ADMIN
     networks:
       external_net:
         ipv4_address: 172.30.0.6
-
+    command: >-
+      sh -c "apt-get update &&
+      apt-get install -y python3-pip &&
+      pip3 install --break-system-packages scapy requests &&
+      tail -f /dev/null"
   internal_user1:
     build: ./internal_user
     hostname: internal_user1
@@ -123,7 +133,10 @@ services:
       internal_net:
         ipv4_address: 172.28.0.10
     command: >-
-      sh -c "ip route del default &&
+      sh -c "apt-get update &&
+      apt-get install -y python3-pip &&
+      pip3 install --break-system-packages scapy requests &&
+      ip route del default &&
       ip route add default via 172.28.0.2 &&
       tail -f /dev/null"
   internal_user2:
@@ -136,7 +149,10 @@ services:
       internal_net:
         ipv4_address: 172.28.0.11
     command: >-
-      sh -c "ip route del default &&
+      sh -c "apt-get update &&
+      apt-get install -y python3-pip &&
+      pip3 install --break-system-packages scapy requests &&
+      ip route del default &&
       ip route add default via 172.28.0.2 &&
       tail -f /dev/null"
   internal_user3:
@@ -149,7 +165,10 @@ services:
       internal_net:
         ipv4_address: 172.28.0.12
     command: >-
-      sh -c "ip route del default &&
+      sh -c "apt-get update &&
+      apt-get install -y python3-pip &&
+      pip3 install --break-system-packages scapy requests &&
+      ip route del default &&
       ip route add default via 172.28.0.2 &&
       tail -f /dev/null"
 
