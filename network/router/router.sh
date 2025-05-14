@@ -27,6 +27,10 @@ iptables -I INPUT 1 -s 198.51.100.23 -j DROP
 # Allow http traffic
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 
+# Replace symbolic links with actual log files
+rm -f /var/log/nginx/access.log /var/log/nginx/error.log
+touch /var/log/nginx/access.log /var/log/nginx/error.log
+chmod 666 /var/log/nginx/access.log /var/log/nginx/error.log
 
 # Run nginx
 /docker-entrypoint.sh nginx -g 'daemon off;'
