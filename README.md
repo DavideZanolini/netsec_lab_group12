@@ -8,3 +8,15 @@ how to capture traffic:
 - open two terminals
 - in each terminal run: sudo tcpdump -i <right interface> -w <file name>
 - merge the two files to obtain a single final file: mergecap -w combined.pcap eth0.pcap eth1.pcap
+
+## Attack
+
+### DDoS
+
+`ddos` service in docker-compose.yml
+
+Capture the traffic on the router with
+
+```bash
+docker exec -it router tcpdump -n -i any dst 172.30.0.2 and udp
+```

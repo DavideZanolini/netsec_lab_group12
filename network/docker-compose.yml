@@ -150,6 +150,12 @@ services:
       sh -c "ip route del default &&
       ip route add default via 172.28.0.2 &&
       tail -f /dev/null"
+  ddos:
+    build: ./ddos
+    networks:
+      external_net:
+    deploy:
+      replicas: 5
 
 networks:
   internal_net:
