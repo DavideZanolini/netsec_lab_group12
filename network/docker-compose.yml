@@ -18,7 +18,7 @@ services:
     command: sleep infinity
     networks:
       external_net:
-        ipv4_address: 172.30.0.3
+        ipv4_address: 172.30.0.33
   webserver:
     build: ./webserver
     cap_add:
@@ -56,10 +56,23 @@ services:
       - NET_ADMIN
     ports:
       - "53:53/udp"
+    volumes:
+      - dns_logs:/dns-logs
     command: >-
       sh -c "ip route del default &&
       ip route add default via 172.28.0.2 &&
-      dnsmasq -k --log-facility=-"
+      dnsmasq -k --log-facility=/dns-logs/dnsmasq.log --log-queries"
+  dns_uf:
+    build: ./dns_uf
+    container_name: dns_uf
+    hostname: dns_uf
+    networks:
+      internal_net:
+        ipv4_address: 172.28.0.5
+    volumes:
+      - dns_logs:/dns-logs:ro
+    user: 
+      root 
   splunk:
     build: ./splunk
     hostname: splunk
@@ -150,12 +163,12 @@ services:
       sh -c "ip route del default &&
       ip route add default via 172.28.0.2 &&
       tail -f /dev/null"
-  ddos:
-    build: ./ddos
-    networks:
-      external_net:
-    deploy:
-      replicas: 5
+  # ddos:
+  #   build: ./ddos
+  #   networks:
+  #     external_net:
+  #   deploy:
+  #     replicas: 5
 
 networks:
   internal_net:
@@ -171,3 +184,4 @@ networks:
 
 volumes:
   webserver_logs:
+  dns_logs:

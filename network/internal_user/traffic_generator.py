@@ -64,8 +64,6 @@ if __name__ == "__main__":
     external_ips = ["172.30.0.4", "172.30.0.5", "172.30.0.6"]  # External users
     domains = ["example.com", "test.com", "mywebsite.org"]  # Multiple domains
 
-    time.sleep(30)
-
     # Run traffic generation for 2 minutes
     start_time = time.time()
     duration = 300  # 2 minutes in seconds

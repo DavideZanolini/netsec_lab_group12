@@ -40,8 +40,6 @@ if __name__ == "__main__":
     webserver_ip = "172.30.0.2"
     duration = 300  # Run traffic generation for 5 minutes
 
-    time.sleep(30)
-
     # Start generating traffic
     start_time = time.time()
     while time.time() - start_time < duration:
