@@ -32,6 +32,34 @@ services:
     networks:
       external_net:
         ipv4_address: 172.30.0.33
+
+  attacker2:
+    build: ./attacker
+    hostname: attacker2
+    container_name: attacker2
+    command: sleep infinity
+    networks:
+      external_net:
+        ipv4_address: 172.30.0.7
+
+  attacker3:
+    build: ./attacker
+    hostname: attacker3
+    container_name: attacker3
+    command: sleep infinity
+    networks:
+      internal_net:
+        ipv4_address: 172.28.0.13
+
+  attacker4:
+    build: ./attacker
+    hostname: attacker4
+    container_name: attacker4
+    command: sleep infinity
+    networks:
+      external_net:
+        ipv4_address: 172.30.0.8
+
   webserver:
     build: ./webserver
     cap_add:
