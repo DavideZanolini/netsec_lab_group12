@@ -1,7 +1,7 @@
 from scapy.all import IP, ICMP, send
 import time
 
-target_ip = "172.32.1.2"
+target_ip = "172.28.0.3"
 packet_size = 65500  # dimensione totale dati ICMP (payload)
 interval = 0.001     # intervallo in secondi (1 ms)
 
