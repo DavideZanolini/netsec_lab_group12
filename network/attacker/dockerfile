@@ -10,3 +10,7 @@ RUN apt update && apt install -y \
     && apt clean
 
 CMD ["bash"]
+
+COPY arp.py .
+COPY port.py .
+COPY ping.py .
