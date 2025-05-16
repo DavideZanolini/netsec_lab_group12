@@ -9,8 +9,8 @@ RUN apt update && apt install -y \
     tcpdump libpcap-dev \
     && apt clean
 
-CMD ["bash"]
-
 COPY arp.py .
 COPY port.py .
 COPY ping.py .
+
+CMD ["bash"]
