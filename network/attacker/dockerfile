@@ -9,6 +9,9 @@ RUN apt update && apt install -y \
     tcpdump libpcap-dev \
     && apt clean
 
+WORKDIR /opt
+COPY ddos.py .
+
 COPY arp.py .
 COPY port.py .
 COPY ping.py .

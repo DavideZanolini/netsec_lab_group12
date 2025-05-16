@@ -9,11 +9,21 @@ how to capture traffic:
 - in each terminal run: sudo tcpdump -i <right interface> -w <file name>
 - merge the two files to obtain a single final file: mergecap -w combined.pcap eth0.pcap eth1.pcap
 
-## Attack
+## Attacks
+
+### Port Scan
+
+```bash
+docker exec -it attacker bash
+nmap 172.30.0.2
+```
 
 ### DDoS
 
-`ddos` service in docker-compose.yml
+```bash
+docker exec -it attacker bash
+python3 /opt/ddos.py
+```
 
 Capture the traffic on the router with
 
