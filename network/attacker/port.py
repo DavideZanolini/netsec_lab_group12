@@ -6,10 +6,10 @@ def run_nmap_scan():
 
     try:
         result = subprocess.run(nmap_command, capture_output=True, text=True, check=True)
-        print("Output del comando nmap:")
+        print("Nmap command output:")
         print(result.stdout)
     except subprocess.CalledProcessError as e:
-        print("Errore durante l'esecuzione di nmap:")
+        print("Error during nmap execution:")
         print(e.stderr)
 
 if __name__ == "__main__":
