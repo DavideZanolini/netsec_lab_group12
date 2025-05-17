@@ -11,7 +11,10 @@ RUN apt-get update && apt-get install -y \
     curl \
     iputils-ping \
     tcpdump \
+    rsyslog \
     && rm -rf /var/lib/apt/lists/*
+
+RUN echo "kern.*    /var/log/kern.log" >> /etc/rsyslog.d/10-kernlog.conf
 
 # Reverse proxy
 COPY reverse-proxy /etc/nginx/sites-available/reverse-proxy

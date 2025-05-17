@@ -13,6 +13,7 @@ services:
         ipv4_address: 172.30.0.2
     volumes:
       - router_logs:/var/log/nginx
+    privileged: true
   router_uf:
     build: ./router_uf
     container_name: router_uf

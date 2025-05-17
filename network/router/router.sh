@@ -4,12 +4,16 @@
 # Enable IP forwarding
 echo 1 >/proc/sys/net/ipv4/ip_forward
 
+############################
+# NAT
+############################
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 iptables -A FORWARD -i eth1 -j ACCEPT
 iptables -A FORWARD -i eth0 -j ACCEPT
-# ip route add 172.29.0.0/16 via 172.30.0.4
 
+############################
 # FIREWALL
+############################
 # Set default policies
 iptables -P INPUT DROP    # drop all incoming unless explicitly allowed
 iptables -P FORWARD DROP  # drop all forwarded unless explicitly allowed
@@ -32,5 +36,14 @@ rm -f /var/log/nginx/access.log /var/log/nginx/error.log
 touch /var/log/nginx/access.log /var/log/nginx/error.log
 chmod 666 /var/log/nginx/access.log /var/log/nginx/error.log
 
-# Run nginx
+############################
+# LOGGING
+############################
+iptables -A INPUT -j LOG --log-prefix "FW-INPUT: " --log-level 4
+iptables -A OUTPUT -j LOG --log-prefix "FW-OUTPUT: " --log-level 4
+rsyslogd
+
+############################
+# nginx
+############################
 /docker-entrypoint.sh nginx -g 'daemon off;'
