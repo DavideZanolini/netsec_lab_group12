@@ -29,6 +29,7 @@ services:
       root
   attacker:
     build: ./attacker
+    image: network-attacker:latest
     hostname: attacker
     container_name: attacker
     command: sleep infinity
@@ -38,30 +39,13 @@ services:
 
   attacker2:
     build: ./attacker
+    image: network-attacker:latest
     hostname: attacker2
     container_name: attacker2
     command: sleep infinity
     networks:
-      external_net:
-        ipv4_address: 172.30.0.7
-
-  attacker3:
-    build: ./attacker
-    hostname: attacker3
-    container_name: attacker3
-    command: sleep infinity
-    networks:
       internal_net:
         ipv4_address: 172.28.0.13
-
-  attacker4:
-    build: ./attacker
-    hostname: attacker4
-    container_name: attacker4
-    command: sleep infinity
-    networks:
-      external_net:
-        ipv4_address: 172.30.0.8
 
   webserver:
     build: ./webserver
@@ -140,6 +124,7 @@ services:
       retries: 5
   user1:
     build: ./external_user
+    image: network-external_user:latest
     hostname: user1
     container_name: user1
     cap_add:
@@ -150,6 +135,7 @@ services:
     command: sh -c 'sleep 10 && python3 /traffic_generator.py && sleep infinity'
   user2:
     build: ./external_user
+    image: network-external_user:latest
     hostname: user2
     container_name: user2
     cap_add:
@@ -160,6 +146,7 @@ services:
     command: sh -c 'sleep 10 && python3 /traffic_generator.py && sleep infinity'
   user3:
     build: ./external_user
+    image: network-external_user:latest
     hostname: user3
     container_name: user3
     cap_add:
@@ -170,6 +157,7 @@ services:
     command: sh -c 'sleep 10 && python3 /traffic_generator.py && sleep infinity'
   internal_user1:
     build: ./internal_user
+    image: network-internal_user:latest
     hostname: internal_user1
     container_name: internal_user1
     cap_add:
@@ -184,6 +172,7 @@ services:
       tail -f /dev/null"
   internal_user2:
     build: ./internal_user
+    image: network-internal_user:latest
     hostname: internal_user2
     container_name: internal_user2
     cap_add:
@@ -198,6 +187,7 @@ services:
       tail -f /dev/null"
   internal_user3:
     build: ./internal_user
+    image: network-internal_user:latest
     hostname: internal_user3
     container_name: internal_user3
     cap_add:
