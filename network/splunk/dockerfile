@@ -4,6 +4,9 @@ USER root
 
 RUN microdnf update -y && microdnf install -y iproute
 
+# Copy the CSV file into the container
+COPY abuseipdb_blacklist.csv /opt/splunk/etc/apps/csv_data/abuseipdb_blacklist.csv
+
 COPY entrypoint-wrapper.sh /entrypoint-wrapper.sh
 RUN chmod +x /entrypoint-wrapper.sh
 
