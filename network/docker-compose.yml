@@ -147,7 +147,7 @@ services:
     networks:
       external_net:
         ipv4_address: 172.30.0.4
-    command: sleep infinity
+    command: sh -c 'sleep 10 && python3 /traffic_generator.py && sleep infinity'
   user2:
     build: ./external_user
     hostname: user2
@@ -157,7 +157,7 @@ services:
     networks:
       external_net:
         ipv4_address: 172.30.0.5
-    command: sleep infinity
+    command: sh -c 'sleep 10 && python3 /traffic_generator.py && sleep infinity'
   user3:
     build: ./external_user
     hostname: user3
@@ -167,7 +167,7 @@ services:
     networks:
       external_net:
         ipv4_address: 172.30.0.6
-    command: sleep infinity
+    command: sh -c 'sleep 10 && python3 /traffic_generator.py && sleep infinity'
   internal_user1:
     build: ./internal_user
     hostname: internal_user1
@@ -180,6 +180,7 @@ services:
     command: >-
       sh -c "ip route del default &&
       ip route add default via 172.28.0.2 &&
+      sleep 10 && python3 /traffic_generator.py &&
       tail -f /dev/null"
   internal_user2:
     build: ./internal_user
@@ -193,6 +194,7 @@ services:
     command: >-
       sh -c "ip route del default &&
       ip route add default via 172.28.0.2 &&
+      sleep 10 && python3 /traffic_generator.py &&
       tail -f /dev/null"
   internal_user3:
     build: ./internal_user
@@ -206,6 +208,7 @@ services:
     command: >-
       sh -c "ip route del default &&
       ip route add default via 172.28.0.2 &&
+      sleep 10 && python3 /traffic_generator.py &&
       tail -f /dev/null"
 
 networks:
