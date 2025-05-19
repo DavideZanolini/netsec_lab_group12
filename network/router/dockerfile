@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y \
     iputils-ping \
     tcpdump \
     rsyslog \
+    scapy \
+    python3 \
     && rm -rf /var/lib/apt/lists/*
 
 RUN echo "kern.*    /var/log/kern/kern.log" >> /etc/rsyslog.d/10-kernlog.conf
@@ -28,5 +30,7 @@ RUN ln -s /etc/nginx/sites-available/reverse-proxy /etc/nginx/sites-enabled/
 # Enable IP forwarding and setup NAT on startup
 COPY router.sh /router.sh
 RUN chmod +x /router.sh
+
+COPY logs_generator.py /logs_generator.py
 
 CMD ["/router.sh"]
