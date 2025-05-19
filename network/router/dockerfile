@@ -14,7 +14,10 @@ RUN apt-get update && apt-get install -y \
     rsyslog \
     && rm -rf /var/lib/apt/lists/*
 
-RUN echo "kern.*    /var/log/kern.log" >> /etc/rsyslog.d/10-kernlog.conf
+RUN echo "kern.*    /var/log/kern/kern.log" >> /etc/rsyslog.d/10-kernlog.conf
+RUN mkdir /var/log/kern
+RUN touch /var/log/kern/kern.log
+RUN chmod 644 /var/log/kern/kern.log
 
 # Reverse proxy
 COPY nginx.conf /etc/nginx/

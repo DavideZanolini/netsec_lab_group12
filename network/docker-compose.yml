@@ -12,8 +12,8 @@ services:
       external_net:
         ipv4_address: 172.30.0.2
     volumes:
-      - router_logs:/var/log/nginx
-      - router_logs:/var/log/kern.log
+      - nginx_logs:/var/log/nginx
+      - kern_logs:/var/log/kern
     privileged: true
   router_uf:
     build: ./router_uf
@@ -23,8 +23,8 @@ services:
       internal_net:
         ipv4_address: 172.28.0.6
     volumes:
-      - router_logs:/nginx-logs:ro
-      - router_logs:/var//var/log/kern.log:ro
+      - nginx_logs:/nginx-logs:ro
+      - kern_logs:/kern-logs:ro
     user:
       root
   attacker:
@@ -226,4 +226,5 @@ networks:
 volumes:
   webserver_logs:
   dns_logs:
-  router_logs:
+  nginx_logs:
+  kern_logs:
