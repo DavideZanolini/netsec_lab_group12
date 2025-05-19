@@ -59,7 +59,7 @@ if __name__ == "__main__":
     print(f"Container IP: {container_ip}")
 
     # Define targets
-    webserver_ips = ["172.28.0.3", "172.28.0.4"]  # Multiple webservers
+    webserver_ips = ["172.28.0.3"]  # Multiple webservers
     dns_server_ip = "172.28.0.21"  # DNS server
     external_ips = ["172.30.0.4", "172.30.0.5", "172.30.0.6"]  # External users
     domains = ["example.com", "test.com", "mywebsite.org"]  # Multiple domains

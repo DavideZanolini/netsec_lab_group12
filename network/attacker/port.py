@@ -1,7 +1,7 @@
 import subprocess
 
 def run_nmap_scan():
-    target_ip = "172.28.0.3"
+    target_ip = "172.30.0.2"
     nmap_command = ["nmap", "-sS", "-Pn", "-n", "-p-", target_ip]
 
     try:

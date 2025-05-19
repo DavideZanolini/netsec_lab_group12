@@ -17,8 +17,10 @@ RUN apt-get update && apt-get install -y \
 RUN echo "kern.*    /var/log/kern.log" >> /etc/rsyslog.d/10-kernlog.conf
 
 # Reverse proxy
+COPY nginx.conf /etc/nginx/
 COPY reverse-proxy /etc/nginx/sites-available/reverse-proxy
-# RUN ln -s /etc/nginx/sites-available/reverse-proxy /etc/nginx/sites-enabled/
+RUN mkdir /etc/nginx/sites-enabled
+RUN ln -s /etc/nginx/sites-available/reverse-proxy /etc/nginx/sites-enabled/
 
 # Enable IP forwarding and setup NAT on startup
 COPY router.sh /router.sh
